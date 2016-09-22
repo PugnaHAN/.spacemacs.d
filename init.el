@@ -31,6 +31,7 @@ values."
      ;; languages
      emacs-lisp
      python
+     c-c++
      ;; source control
      git
      ;; +intl
@@ -57,7 +58,8 @@ values."
                                     vi-tilde-fringe
                                     ;; org-evil-mode is not necessary for me
                                     evil-org
-                                    evil-surround                                    
+                                    evil-surround
+                                    evil-unimpaired
                                     ;; Chinese layers
                                     chinese-pyim
                                     chinese-wbim
@@ -201,7 +203,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -261,9 +263,9 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "https://elpa.zilongshanren.com/melpa/")
-          ("org-cn"   . "https://elpa.zilongshanren.com/org/") 
-          ("gnu-cn"   . "https://elpa.zilongshanren.com/gnu/")))
+    '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+      ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+      ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
@@ -296,6 +298,20 @@ you should place your code here."
 
   ;; Global settings
   (setq-default fill-column 90)
+  
+  ;; Key bindings
+  (global-set-key (kbd "C-j") 'newline-and-indent)
+  (global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
+
+  ;; K&R style for c/c++
+  (setq c-basic-offset 4
+        c-default-style
+        '((c++-mode . "k&r")
+          (c-mode . "k&r")
+          (java-mode . "java")
+          (awk-mode . "awk")
+          (other . "gnu")))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
