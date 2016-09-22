@@ -31,7 +31,9 @@ values."
      ;; languages
      emacs-lisp
      python
-     c-c++
+     (c-c++ :variables
+            c-c++-enable-clang-support t
+            c-c++-default-mode-for-headers 'c++-mode)
      ;; source control
      git
      ;; +intl
@@ -47,6 +49,7 @@ values."
                       syntax-checking-enable-tooltips nil)
      ;; version-control
      juhan-ui
+     juhan-c-c++
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -290,6 +293,7 @@ you should place your code here."
   ;; Org mode settings
   (with-eval-after-load 'org
     (progn
+      (linum-mode nil)
       (setq truncate-lines nil)
       (setq org-startup-folded nil)
       (when (org-agenda-file-p)
@@ -304,13 +308,13 @@ you should place your code here."
   (global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
 
   ;; K&R style for c/c++
-  (setq c-basic-offset 4
-        c-default-style
-        '((c++-mode . "k&r")
-          (c-mode . "k&r")
-          (java-mode . "java")
-          (awk-mode . "awk")
-          (other . "gnu")))
+  ;; (setq c-basic-offset 4
+  ;;       c-default-style
+  ;;       '((c++-mode . "k&r")
+  ;;         (c-mode . "k&r")
+  ;;         (java-mode . "java")
+  ;;         (awk-mode . "awk")
+  ;;         (other . "gnu")))
 
   )
 
