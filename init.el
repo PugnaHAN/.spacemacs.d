@@ -24,7 +24,8 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; +completion layer
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t)
      helm
      ;; better default
      better-defaults
@@ -48,8 +49,11 @@ values."
                       syntax-checking-enable-by-default nil
                       syntax-checking-enable-tooltips nil)
      ;; version-control
+     ;; self-defined layers
      juhan-ui
-     juhan-c-c++
+     (juhan-c-c++ :variables
+                  juhan-c-c++-company-idle-delay 0.1)
+     juhan-better-defaults
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -69,6 +73,10 @@ values."
                                     find-by-pinyin-dired
                                     ace-pinyin
                                     pangu-spacing
+                                    ;; auto-completion
+                                    auto-complete
+                                    ac-ispell
+                                    auto-yasnippet
                                     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of

@@ -32,7 +32,11 @@
 (defconst juhan-c-c++-packages
   '((google-c-style :location (recipe :fetcher github
                                       :repo google/styleguide
-                                      :files ("google-c-style.el"))))
+                                      :files ("google-c-style.el")))
+    company
+    company-c-headers
+    )
+
   "The list of Lisp packages required by the juhan-c-c++ layer.
 
 Each entry is either:
@@ -60,25 +64,27 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-(defun juhan-c-c++/init-google-c-style ()
-  (message "Initialize google-c-style")
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  )
 
-(defun juhan-c-c++/post-init-google-c-style()T
-  (setq  c-default-style
-        `((c++-mode . "google")
-          (c-mode . "google")
-          (java-mode . "java")
-          (awk-mode . "awk")
-          (other . "gnu")))
-  (add-hook 'c-mode-hook (lambda()
-                           (setq c-basic-offset 4
-                                 indent-tabs-mode t)))
-                           
-  (add-hook 'c++-mode-hook (lambda()
+(defun juhan-c-c++/post-init-company()
+  (setq company-idle-delay juhan-c-c++-company-idle-delay))
+
+(defun juhan-c-c++/init-google-c-style ()
+  ;; (message "Initialize google-c-style")
+  (add-hook 'c-mode-common-hook 'google-set-c-style))
+
+(defun juhan-c-c++/post-init-google-c-style()
+  (eval-after-load 'google-c-style
+    (setq  c-default-style
+           `((c++-mode . "google")
+             (c-mode . "google")
+             (java-mode . "java")
+             (awk-mode . "awk")
+             (other . "gnu")))
+    (add-hook 'c-mode-hook (lambda()
                              (setq c-basic-offset 4
                                    indent-tabs-mode t)))
-  )
-
+    
+    (add-hook 'c++-mode-hook (lambda()
+                               (setq c-basic-offset 4
+                                     indent-tabs-mode t)))))
 ;;; packages.el ends here
