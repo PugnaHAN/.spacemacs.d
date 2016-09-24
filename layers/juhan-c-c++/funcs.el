@@ -6,4 +6,12 @@
       (when (file-exists-p ros-header-path)
         (setq-local company-c-headers-path-system
                     (add-to-list 'temp-c-header-path ros-header-path))))))
-        
+
+(defmacro juhan|toggle-company-backends (backend)
+  "Push or delete the backend to company-backends"
+  (let ((funsymbol (intern (format "juhan/company-toggle-%S" backend))))
+    `(defun ,funsymbol ()
+       (interactive)
+       (if (eq (car company-backends) ',backend)
+           (setq-local company-backends (delete ',backend company-backends))
+         (push ',backend company-backends)))))

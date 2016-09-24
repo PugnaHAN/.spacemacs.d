@@ -103,19 +103,29 @@ Each entry is either:
     (spacemacs/add-to-hooks 'ycmd-mode '(c-mode-hook c++-mode-hook))))
     
 
-;; (defun juhan-c-c++/post-init-ycmd()
-;;   (with-eval-after-load 'ycmd
-;;     (let ((my-c-c++-layer-path "/home/turtlebot/.spacemacs.d/layers/juhan-c-c++/"))
-;;       (setq ycmd-server-command
-;;             '("python" "/home/turtlebot/.spacemacs.d/layers/juhan-c-c++/ycmd")
-;;             ycmd-global-config
-;;             "/home/turtlebot/.spacemacs.d/layers/juhan-c-c++/"))
-;;     (spacemacs/add-to-hooks 'ycmd-mode '(c-mode-hook c++-mode-hook))))
+(defun juhan-c-c++/post-init-ycmd()
+  (progn
+    (setq ycmd-tag-files 'auto)
+    (setq ycmd-request-message-level 1)
+    (setq company-backends-c-mode-common
+          '((company-c-headers
+             company-dabbrev
+             company-keywords
+             company-gtags :with company-yasnippet
+             company-files company-dabbrev))))
+  (juhan|toggle-company-backends company-ycmd)
+  (spacemacs|hide-lighter ycmd-mode)
+
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode
+    "tb" 'juhan/company-toggle-company-ycmd)
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+    "tb" 'juhan/company-toggle-company-ycmd)
+  )
 
 (defun juhan-c-c++/init-company-ycmd()
   (use-package "company-ycmd"
     :config
-    (company-ycmd-setup)))
+    (list company-backends 'company-ycmd)))
 
 (defun juhan-c-c++/init-flycheck-ycmd()
   (use-package "flycheck-ycmd"
