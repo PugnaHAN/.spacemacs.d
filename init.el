@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      ;; +completion layer
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip t)
+                      auto-completion-enable-help-tooltip 'manual)
      helm
      ;; better default
      better-defaults
@@ -33,7 +33,7 @@ values."
      emacs-lisp
      python
      (c-c++ :variables
-            c-c++-enable-clang-support t
+            ;; c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode)
      ;; source control
      git
@@ -51,6 +51,7 @@ values."
      ;; version-control
      ;; self-defined layers
      juhan-ui
+     zilongshanren-programming
      (juhan-c-c++ :variables
                   juhan-c-c++-company-idle-delay 0.1)
      juhan-better-defaults

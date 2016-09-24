@@ -4,5 +4,7 @@
 (defvar juhan-c-c++-ros-version "indigo"
   "Define the ros version to make header file can be added into path-separator")
 
-(message "Configure the c-++-mode-hook")
+(defvar juhan-c-c++-layer-path (expand-file-name "~/Github/ycmd")
+  "The c-c++ layer path of juhan")
+
 (advice-add 'c-c++/load-clang-args :after #'add-ros-header-path-if-needed)

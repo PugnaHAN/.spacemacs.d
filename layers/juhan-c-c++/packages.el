@@ -35,6 +35,8 @@
                                       :files ("google-c-style.el")))
     company
     company-c-headers
+    ycmd
+    company-ycmd
     )
 
   "The list of Lisp packages required by the juhan-c-c++ layer.
@@ -89,5 +91,35 @@ Each entry is either:
                                  (setq c-basic-offset 4
                                        indent-tabs-mode t)))))
       )
+
+(defun juhan-c-c++/init-ycmd()
+  (use-package "ycmd"
+    :defer t
+    :config
+    (set-variable 'ycmd-server-command
+                  (list "python" (concat juhan-c-c++-layer-path "/ycmd/")))
+    (set-variable 'ycmd-global-config
+                  (concat juhan-c-c++-layer-path "/examples/.ycm_extra_conf.py"))
+    (spacemacs/add-to-hooks 'ycmd-mode '(c-mode-hook c++-mode-hook))))
+    
+
+;; (defun juhan-c-c++/post-init-ycmd()
+;;   (with-eval-after-load 'ycmd
+;;     (let ((my-c-c++-layer-path "/home/turtlebot/.spacemacs.d/layers/juhan-c-c++/"))
+;;       (setq ycmd-server-command
+;;             '("python" "/home/turtlebot/.spacemacs.d/layers/juhan-c-c++/ycmd")
+;;             ycmd-global-config
+;;             "/home/turtlebot/.spacemacs.d/layers/juhan-c-c++/"))
+;;     (spacemacs/add-to-hooks 'ycmd-mode '(c-mode-hook c++-mode-hook))))
+
+(defun juhan-c-c++/init-company-ycmd()
+  (use-package "company-ycmd"
+    :config
+    (company-ycmd-setup)))
+
+(defun juhan-c-c++/init-flycheck-ycmd()
+  (use-package "flycheck-ycmd"
+    :config
+    (flycheck-ycmd-setup)))
     
 ;;; packages.el ends here
