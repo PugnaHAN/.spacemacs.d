@@ -73,18 +73,21 @@ Each entry is either:
   (add-hook 'c-mode-common-hook 'google-set-c-style))
 
 (defun juhan-c-c++/post-init-google-c-style()
-  (eval-after-load 'google-c-style
-    (setq  c-default-style
-           `((c++-mode . "google")
-             (c-mode . "google")
-             (java-mode . "java")
-             (awk-mode . "awk")
-             (other . "gnu")))
-    (add-hook 'c-mode-hook (lambda()
-                             (setq c-basic-offset 4
-                                   indent-tabs-mode t)))
-    
-    (add-hook 'c++-mode-hook (lambda()
+  (with-eval-after-load 'google-c-style
+    (progn
+      (setq  c-default-style
+             `((c++-mode . "google")
+               (c-mode . "google")
+               (java-mode . "java")
+               (awk-mode . "awk")
+               (other . "gnu")))
+
+      (add-hook 'c-mode-hook (lambda()
                                (setq c-basic-offset 4
-                                     indent-tabs-mode t)))))
+                                     indent-tabs-mode t)))
+      (add-hook 'c++-mode-hook (lambda()
+                                 (setq c-basic-offset 4
+                                       indent-tabs-mode t)))))
+      )
+    
 ;;; packages.el ends here

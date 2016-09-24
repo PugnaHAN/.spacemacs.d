@@ -4,5 +4,5 @@
 (defvar juhan-c-c++-ros-version "indigo"
   "Define the ros version to make header file can be added into path-separator")
 
-(add-hook 'c++-mode-hook
-          'add-ros-header-path-if-needed)
+(message "Configure the c-++-mode-hook")
+(advice-add 'c-c++/load-clang-args :after #'add-ros-header-path-if-needed)

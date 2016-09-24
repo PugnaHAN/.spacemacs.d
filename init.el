@@ -74,7 +74,7 @@ values."
                                     ace-pinyin
                                     pangu-spacing
                                     ;; auto-completion
-                                    auto-complete
+                                    auto-complete                                    
                                     ac-ispell
                                     auto-yasnippet
                                     )
