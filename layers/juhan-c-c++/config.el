@@ -7,7 +7,9 @@
 (defvar juhan-c-c++-layer-path (expand-file-name "~/Github/ycmd")
   "The c-c++ layer path of juhan")
 
-(advice-add 'c-c++/load-clang-args :after #'add-ros-header-path-if-needed)
+(if c-c++-enable-clang-support
+    (advice-add 'c-c++/load-clang-args :after #'add-ros-header-path-if-needed)
+  (add-ros-header-path-if-needed))
 
 ;; Config my company-backends
 
