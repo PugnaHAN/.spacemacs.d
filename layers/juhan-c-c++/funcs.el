@@ -6,4 +6,6 @@
       (when (file-exists-p ros-header-path)
         (setq-local company-c-headers-path-system
                     (add-to-list 'temp-c-header-path ros-header-path))))))
-        
+
+(defun my-c-c++-company-backends()
+  )

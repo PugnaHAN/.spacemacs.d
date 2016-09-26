@@ -35,6 +35,8 @@
                                       :files ("google-c-style.el")))
     company
     company-c-headers
+    irony
+    company-irony
     )
 
   "The list of Lisp packages required by the juhan-c-c++ layer.
@@ -89,5 +91,16 @@ Each entry is either:
                                  (setq c-basic-offset 4
                                        indent-tabs-mode t)))))
       )
-    
+
+(defun juhan-c-c++/init-irony()
+  (use-package "irony"
+    :defer t
+    :config
+    (spacemacs/add-to-hooks 'irony-mode '(c-mode-hook c++-mode-hook))))
+
+(defun juhan-c-c++/init-company-irony()
+  (use-package "company-irony"
+    :config
+    (add-to-list 'company-backends-c-mode-common 'company-irony)))
+
 ;;; packages.el ends here

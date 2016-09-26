@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      ;; +completion layer
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip t)
+                      auto-completion-enable-help-tooltip 'manual)
      helm
      ;; better default
      better-defaults
@@ -33,7 +33,6 @@ values."
      emacs-lisp
      python
      (c-c++ :variables
-            c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode)
      ;; source control
      git
@@ -314,15 +313,6 @@ you should place your code here."
   ;; Key bindings
   (global-set-key (kbd "C-j") 'newline-and-indent)
   (global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
-
-  ;; K&R style for c/c++
-  ;; (setq c-basic-offset 4
-  ;;       c-default-style
-  ;;       '((c++-mode . "k&r")
-  ;;         (c-mode . "k&r")
-  ;;         (java-mode . "java")
-  ;;         (awk-mode . "awk")
-  ;;         (other . "gnu")))
 
   )
 
