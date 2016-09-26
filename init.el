@@ -51,7 +51,6 @@ values."
      ;; version-control
      ;; self-defined layers
      juhan-ui
-     zilongshanren-programming
      (juhan-c-c++ :variables
                   juhan-c-c++-company-idle-delay 0.1)
      juhan-better-defaults

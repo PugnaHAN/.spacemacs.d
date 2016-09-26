@@ -9,7 +9,7 @@
 
 (if c-c++-enable-clang-support
     (advice-add 'c-c++/load-clang-args :after #'add-ros-header-path-if-needed)
-  (add-ros-header-path-if-needed))
+  (add-hook 'c-mode-common-hook 'add-ros-header-path-if-needed))
 
 ;; Config my company-backends
 
