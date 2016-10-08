@@ -97,10 +97,10 @@ Each entry is either:
     :defer t
     :config
     (spacemacs/add-to-hooks 'irony-mode '(c-mode-hook c++-mode-hook))))
-
+    
 (defun juhan-c-c++/init-company-irony()
   (use-package "company-irony"
-    :config
-    (add-to-list 'company-backends-c-mode-common 'company-irony)))
+    :config (add-to-list 'company-backends 'company-irony)))
+    
 
 ;;; packages.el ends here

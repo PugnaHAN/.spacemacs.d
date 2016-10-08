@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      ;; +completion layer
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip 'manual)
+                      auto-completion-enable-help-tooltip nil)
      helm
      ;; better default
      better-defaults
