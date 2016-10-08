@@ -101,6 +101,5 @@ Each entry is either:
 (defun juhan-c-c++/init-company-irony()
   (use-package "company-irony"
     :config (add-to-list 'company-backends 'company-irony)))
-    
 
 ;;; packages.el ends here

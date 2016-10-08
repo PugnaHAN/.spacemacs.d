@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      ;; +completion layer
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip nil)
+                      auto-completion-enable-help-tooltip 'manual)
      helm
      ;; better default
      better-defaults
@@ -309,11 +309,12 @@ you should place your code here."
 
   ;; Global settings
   (setq-default fill-column 90)
-  
+  ;; set the cursor type
+  (setq evil-emacs-state-cursor '("skyblue" bar))
+
   ;; Key bindings
   (global-set-key (kbd "C-j") 'newline-and-indent)
   (global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
