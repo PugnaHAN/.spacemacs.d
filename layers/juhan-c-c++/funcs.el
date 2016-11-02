@@ -29,8 +29,6 @@
     (dolist (tmp-version c++-versions)
       (when (and (not (string-equal tmp-version "."))
                  (not (string-equal tmp-version "..")))
-        (message (format "tmp-version is %s"
-                         tmp-version))
         (when (version< final-version tmp-version)
           (setq final-version tmp-version))))
     (concat c++-header-path final-version)))

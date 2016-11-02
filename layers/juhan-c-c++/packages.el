@@ -34,7 +34,7 @@
                                       :repo google/styleguide
                                       :files ("google-c-style.el")))
     company
-    company-c-headers
+    ;; company-c-headers
     irony
     company-irony
     )
