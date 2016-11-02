@@ -34,7 +34,7 @@
                                       :repo google/styleguide
                                       :files ("google-c-style.el")))
     company
-    company-c-headers
+    ;; company-c-headers
     ycmd
     company-ycmd
     )
@@ -97,35 +97,39 @@ Each entry is either:
     :defer t
     :config
     (set-variable 'ycmd-server-command
-                  (list "python" (concat juhan-c-c++-layer-path "/ycmd/")))
+                  (list "python3" (concat juhan-c-c++-layer-path "/ycmd/")))
     (set-variable 'ycmd-global-config
                   (concat juhan-c-c++-layer-path "/examples/.ycm_extra_conf.py"))
     (spacemacs/add-to-hooks 'ycmd-mode '(c-mode-hook c++-mode-hook))))
     
 
 (defun juhan-c-c++/post-init-ycmd()
-  (progn
-    (setq ycmd-tag-files 'auto)
-    (setq ycmd-request-message-level 1)
-    (setq company-backends-c-mode-common
-          '((company-c-headers
-             company-dabbrev
-             company-keywords
-             company-gtags :with company-yasnippet
-             company-files company-dabbrev))))
-  (juhan|toggle-company-backends company-ycmd)
+  (setq ycmd-tag-files 'auto)
+  (setq ycmd-request-message-level 1)
+  
+  (setq company-backends-c-mode-common
+        '((company-c-headers
+           company-dabbrev
+           company-keywords
+           company-gtags :with company-yasnippet
+           company-files company-dabbrev)))
+  ;; (juhan|toggle-company-backends company-ycmd)
   (spacemacs|hide-lighter ycmd-mode)
 
-  (spacemacs/set-leader-keys-for-major-mode 'c-mode
-    "tb" 'juhan/company-toggle-company-ycmd)
-  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-    "tb" 'juhan/company-toggle-company-ycmd)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'c-mode
+  ;;   "tb" 'juhan/company-toggle-company-ycmd)
+  ;; (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+  ;;   "tb" 'juhan/company-toggle-company-ycmd)
+  ;; (juhan/company-toggle-company-ycmd company-ycmd))
   )
 
 (defun juhan-c-c++/init-company-ycmd()
   (use-package "company-ycmd"
     :config
-    (list company-backends 'company-ycmd)))
+    (progn
+      (company-ycmd-setup))))
+      ;; (push 'company-ycmd company-backends-c-mode-common))))
+    
 
 (defun juhan-c-c++/init-flycheck-ycmd()
   (use-package "flycheck-ycmd"
