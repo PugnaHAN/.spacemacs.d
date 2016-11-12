@@ -34,9 +34,10 @@
                                       :repo google/styleguide
                                       :files ("google-c-style.el")))
     company
-    company-c-headers
+    ;; company-c-headers
     ycmd
     company-ycmd
+    xcscope
     )
 
   "The list of Lisp packages required by the juhan-c-c++ layer.
@@ -131,5 +132,14 @@ Each entry is either:
   (use-package "flycheck-ycmd"
     :config
     (flycheck-ycmd-setup)))
+
+(defun juhan-c-c++/init-xcscope()
+  (use-package xcscope
+    :config
+    (setq cscope-do-not-update-database (not juhan-c-c++-cscope-update-option)
+          cscope-option-do-not-update-database (not juhan-c-c++-cscope-update-option))
+    (spacemacs/add-to-hooks 'cscope-minor-mode '(c-mode-hook
+                                                 c++-mode-hook))))
+
     
 ;;; packages.el ends here
