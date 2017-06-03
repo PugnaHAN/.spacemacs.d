@@ -26,6 +26,7 @@ values."
      ;; +completion layer
      (auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual)
+     ;; ycmd
      helm
      ;; better default
      better-defaults
@@ -131,10 +132,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
-                         material
-                         spacemacs-dark
+   dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light
+                         monokai
+                         material
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -240,7 +241,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'prog-mode
+   dotspacemacs-line-numbers nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -292,6 +293,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
   (setq powerline-default-separator 'arrow)
   ;; Disable the keybinding to avoid the white screen issue on Xmanager
   (global-set-key (kbd "<C-down-mouse-1>") nil)
@@ -302,7 +304,6 @@ you should place your code here."
   ;; Org mode settings
   (with-eval-after-load 'org
     (progn
-      (linum-mode nil)
       (setq truncate-lines nil)
       (setq org-startup-folded nil)
       (when (org-agenda-file-p)
@@ -312,7 +313,7 @@ you should place your code here."
   ;; Global settings
   (setq-default fill-column 90)
   ;; set the cursor type
-  (setq evil-emacs-state-cursor '("skyblue" bar))
+  (setq-default evil-emacs-state-cursor '("skyblue" bar))
 
   ;; Key bindings
   (global-set-key (kbd "C-j") 'newline-and-indent)
