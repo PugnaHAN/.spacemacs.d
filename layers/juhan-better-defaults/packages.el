@@ -30,8 +30,8 @@
 ;;; Code:
 
 (defconst juhan-better-defaults-packages
-  '()
-  "The list of Lisp packages required by the juhan-better-defaults layer.
+  '(dired)
+  "The list of Lisp packages required by the juhan-better-defaults layer.q
 
 Each entry is either:
 
@@ -57,6 +57,28 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+
+(defun juhan-better-defaults/post-init-dired()
+  (progn
+    (put 'dired-find-alternate-file 'disabled nil)
+    (add-hook 'dired-mode-hook
+              (lambda()
+                (define-key dired-mode-map (kbd "<C-up>")
+                  (lambda()
+                    (interactive)
+                    (find-alternate-file "..")))))
+    (eval-after-load "dired"
+      '(progn
+         (defadvice dired-find-file (around dired-subst-directory activate)
+           "Replace current buffer if file is a directory."
+           (interactive)
+           (let* ((orig (current-buffer))
+                  ;; (filename (dired-get-filename))
+                  (filename (dired-get-filename t t))
+                  (bye-p (file-directory-p filename)))
+             ad-do-it
+             (when (and bye-p (not (string-match "[/\\\\]\\.$" filename)))
+               (kill-buffer orig))))))))
 
 
 ;;; packages.el ends here
