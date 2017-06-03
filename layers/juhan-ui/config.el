@@ -67,11 +67,12 @@
                       'face 'linum-leading-zero)
           (propertize (number-to-string line) 'face 'linum)
           "\u2502")))
-     (setq linum-format 'linum-format-func)))
+     (setq linum-format 'linum-format-func)
+     (add-hook 'prog-mode-hook 'linum-mode)))
 
-;; ;; Chinse font settings
-;; (when (window-system)
-;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;     (set-fontset-font (frame-parameter nil 'font)
-;;                       charset
-;;                       (font-spec :family "Microsoft Yahei" :size 12))))
+;; Chinse font settings
+(when (window-system)
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font)
+                      charset
+                      (font-spec :family "Microsoft Yahei" :size 12))))
