@@ -31,7 +31,6 @@
 
 (defconst juhan-better-defaults-packages
   '(dired)
-    
   "The list of Lisp packages required by the juhan-better-defaults layer.
 
 Each entry is either:
