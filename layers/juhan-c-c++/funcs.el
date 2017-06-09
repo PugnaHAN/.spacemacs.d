@@ -6,10 +6,10 @@
           (c++-header-path (juhan-c-c++/get-c++-header-path)))
       (when (file-exists-p ros-header-path)
         (setq-local company-c-headers-path-system
-                    (progn 
-                      (add-to-list 'temp-c-header-path ros-header-path)
-                      (add-to-list 'temp-c-header-path c++-header-path)))))))
-
+                    (add-to-list 'temp-c-header-path ros-header-path)))
+      (setq-local company-c-headers-path-system
+                  (add-to-list 'temp-c-header-path c++-header-path)))))
+       
 (defmacro juhan|toggle-company-backends (backend)
   "Push or delete the backend to company-backends"
   (let ((funsymbol (intern (format "juhan/company-toggle-%S" backend))))
