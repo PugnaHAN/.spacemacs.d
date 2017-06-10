@@ -37,6 +37,7 @@
     ;; company-c-headers
     ycmd
     company-ycmd
+    flycheck
     )
 
   "The list of Lisp packages required by the juhan-c-c++ layer.
@@ -108,12 +109,14 @@ Each entry is either:
   (setq ycmd-request-message-level 1)
   
   (setq company-backends-c-mode-common
-        '((company-c-headers
+        '((company-files
+           company-c-headers
+           company-yasnippet
+           company-keywords
            company-clang
-           company-ycmd
-           company-gtags :with company-yasnippet)
-          (company-keywords company-files)
-           company-dabbrev))
+           company-ycmd)
+          (company-gtags :with company-yasnippet
+           company-dabbrev)))
   ;; (juhan|toggle-company-backends company-ycmd)
   (spacemacs|hide-lighter ycmd-mode)
 
@@ -136,5 +139,11 @@ Each entry is either:
   (use-package "flycheck-ycmd"
     :config
     (flycheck-ycmd-setup)))
-    
+
+(defun juhan-c-c++/post-init-flycheck()
+  (add-hook 'c++-mode-hook '(lambda()
+                              (setq flycheck-clang-language-standard "c++11")
+                              ))
+  )
+
 ;;; packages.el ends here
