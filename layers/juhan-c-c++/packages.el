@@ -37,7 +37,6 @@
     ;; company-c-headers
     ycmd
     company-ycmd
-    xcscope
     )
 
   "The list of Lisp packages required by the juhan-c-c++ layer.
@@ -98,9 +97,9 @@ Each entry is either:
     :defer t
     :config
     (set-variable 'ycmd-server-command
-                  (list "python3" (concat juhan-c-c++-layer-path "/ycmd/")))
+                  (list "python" (concat juhan-c-c++-ycmd-path "/ycmd/")))
     (set-variable 'ycmd-global-config
-                  (concat juhan-c-c++-layer-path "/examples/.ycm_extra_conf.py"))
+                  (concat juhan-c-c++-ycmd-path "/examples/.ycm_extra_conf.py"))
     (spacemacs/add-to-hooks 'ycmd-mode '(c-mode-hook c++-mode-hook))))
     
 
@@ -110,10 +109,11 @@ Each entry is either:
   
   (setq company-backends-c-mode-common
         '((company-c-headers
-           company-dabbrev
-           company-keywords
-           company-gtags :with company-yasnippet
-           company-files company-dabbrev)))
+           company-clang
+           company-ycmd
+           company-gtags :with company-yasnippet)
+          (company-keywords company-files)
+           company-dabbrev))
   ;; (juhan|toggle-company-backends company-ycmd)
   (spacemacs|hide-lighter ycmd-mode)
 
@@ -136,14 +136,5 @@ Each entry is either:
   (use-package "flycheck-ycmd"
     :config
     (flycheck-ycmd-setup)))
-
-(defun juhan-c-c++/init-xcscope()
-  (use-package xcscope
-    :config
-    (setq cscope-do-not-update-database (not juhan-c-c++-cscope-update-option)
-          cscope-option-do-not-update-database (not juhan-c-c++-cscope-update-option))
-    (spacemacs/add-to-hooks 'cscope-minor-mode '(c-mode-hook
-                                                 c++-mode-hook))))
-
     
 ;;; packages.el ends here

@@ -26,17 +26,21 @@ values."
      ;; +completion layer
      (auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual)
-     ;; ycmd
      helm
+     ;; +tags layer
+     gtags
+     cscope
      ;; better default
      better-defaults
      ;; languages
      emacs-lisp
      python
      (c-c++ :variables
-            ;; c-c++-enable-clang-support t
+            c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode)
      markdown
+     ;; +tools
+     ;; ycmd
      ;; source control
      git
      ;; +intl

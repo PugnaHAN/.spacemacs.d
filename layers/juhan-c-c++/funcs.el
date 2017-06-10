@@ -8,7 +8,11 @@
         (setq-local company-c-headers-path-system
                     (add-to-list 'temp-c-header-path ros-header-path)))
       (setq-local company-c-headers-path-system
-                  (add-to-list 'temp-c-header-path c++-header-path)))))
+                  (progn 
+                    (add-to-list 'temp-c-header-path c++-header-path)
+                    (add-to-list 'temp-c-header-path "/usr/include/x86_64-linux-gnu")
+                    )))))
+
        
 (defmacro juhan|toggle-company-backends (backend)
   "Push or delete the backend to company-backends"

@@ -4,7 +4,7 @@
 (defvar juhan-c-c++-ros-version "indigo"
   "Define the ros version to make header file can be added into path-separator")
 
-(defvar juhan-c-c++-layer-path (expand-file-name "~/Github/ycmd")
+(defvar juhan-c-c++-ycmd-path (expand-file-name "~/Workspace/Github/ycmd")
   "The c-c++ layer path of juhan")
 
 (defvar juhan-c-c++-cscope-update-option nil
