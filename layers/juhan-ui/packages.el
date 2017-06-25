@@ -31,7 +31,7 @@
 
 (defconst juhan-ui-packages
   '(
-    ;; (zilong-mode-line :location built-in)
+    (zilong-mode-line :location built-in)
     diminish
     popwin
     (whitespace :location built-in)
@@ -40,6 +40,10 @@
     ;; beacon
     ;; evil-vimish-fold
     company
+    (font-config :location built-in)
+    (face-config :location built-in)
+    powerline
+    linum
     )
   )
 
@@ -149,15 +153,16 @@
 
                  '(:eval (when (> (window-width) 90)
                            (buffer-encoding-abbrev)))
-                 mode-line-end-spaces
+                 " "
                  ;; add the time, with the date and the emacs uptime in the tooltip
-                 ;; '(:eval (propertize (format-time-string "%H:%M")
-                 ;;                     'help-echo
-                 ;;                     (concat (format-time-string "%c; ")
-                 ;;                             (emacs-uptime "Uptime:%hh"))))
+                 '(:eval (propertize (format-time-string "%H:%M")
+                                     'help-echo
+                                     (concat (format-time-string "%c; ")
+                                             (emacs-uptime "Uptime:%hh"))))
+                 mode-line-end-spaces
                  )))
 
-(defun juhan-ui/post-init-diminish ()
+(defun juhan-ui/post-init-diminish()
   (progn
     (with-eval-after-load 'whitespace
       (diminish 'whitespace-mode))
@@ -166,8 +171,10 @@
     (with-eval-after-load 'which-key
       (diminish 'which-key-mode))
     (with-eval-after-load 'hungry-delete
-      (diminish 'hungry-delete-mode))))
-
+      (diminish 'hungry-delete-mode))
+    (with-eval-after-load 'company-mode
+      (diminish 'company-mode " ⓒc"))
+    ))
 
 (defun juhan-ui/post-init-spaceline ()
   (use-package spaceline-config
@@ -324,3 +331,78 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
      `(company-tooltip-selection ((t (:background ,accent-color
                                                   :forground ,primary-text))))
      `(company-tooltip-common ((t (:background ,secondary-text)))))))
+
+;; Init the table can be aligned in org mode
+(defun juhan-ui/init-font-config()
+  "Use Input Mono Compressed:13 and Noto Sans Mono Hei CJK TC:14 to align the fonts width"
+  (let ((ft-family (if (string-equal system-type "gnu/linux")
+                       "Noto Sans Mono CJK TC"
+                     "Microsoft Yahei")))
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        (font-spec :family ft-family :size 14))))
+  )
+
+;; configure some ui settings
+(defun juhan-ui/init-face-config()
+  "Mass configuration of ui settings"
+  ;; Global settings
+  (setq-default fill-column 90)
+  ;; set the cursor type
+  (with-eval-after-load 'evil
+    (setq-default evil-emacs-state-cursor '("skyblue" bar)))
+
+  ;; for fixing powerline separator issue
+  ;; (setq-default ns-use-srgb-colorspace nil)
+
+  ;; http://emacsredux.com/blog/2014/04/05/which-function-mode/
+  (which-function-mode)
+  ;; when editing js file, this feature is very useful
+  (setq-default header-line-format
+                '((which-func-mode ("" which-func-format " "))))
+
+  ;; more useful frame title, that show either a file or a
+  ;; buffer name (if the buffer isn't visiting a file)
+  (setq frame-title-format
+        '("" " Pugna_HAN - "
+          (:eval (if (buffer-file-name)
+                     (abbreviate-file-name (buffer-file-name)) "%b"))))
+
+  (define-fringe-bitmap 'right-curly-arrow
+    [#b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b01110000
+     #b00010000
+     #b00010000
+     #b00000000])
+
+  (define-fringe-bitmap 'left-curly-arrow
+    [#b00000000
+     #b00001000
+     #b00001000
+     #b00001110
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000])
+  )
+
+;; Set the powerline style
+(defun juhan-ui/post-init-powerline()
+  (setq powerline-default-separator 'arrow)
+)
+
+;; Set linum format 
+(defun juhan-ui/post-init-linum()
+  (defface linum-leading-zero
+    `((t :inherit 'linum
+         :foreground ,(face-attribute 'linum :background nil t)
+         :family "InputMono" :size 14))
+    "Face for displaying leading zeroes for line numbers in display margin."
+    :group 'linum)
+  (setq linum-format 'linum-format-func)
+  (add-hook 'prog-mode-hook 'linum-mode)
+)

@@ -62,30 +62,12 @@
         (match-string 1 buf-coding)
       buf-coding)))
 
-(defun length-of-number (number)
-  ;; Get the length of number -> 100=>3, 1000=>4
-  ;; Another -> (length number-to-string line-number)
-  (let ((count 0))
-    (while (> (/ number 10) 1)
-      (progn
-        (setq number (/ number 10))
-        (setq count (+ count 1))))
-    (+ count 1)))
-
-(defun maximum-linum ()
-  ;; Get the maxmum line number of current buffer
-  ;; Another mthod (count-lines (point-min) (point-max))
-  (save-excursion
-    (progn
-      (end-of-buffer)
-      (line-number-at-pos))))
-
-(defun format-linum ()
-  (setq linum-format 
-        (concat "%" (number-to-string (length-of-number(maximum-linum)))
-                "d\u2502")))
-
-(format-linum)
-
-(defun linum-update-window--before-format ()
-  (format-linum))
+(defun linum-format-func (line)
+  "format the line linum to '  N' - the number with spaces to fit the width of max lines "
+  (let ((w (length
+            (number-to-string (count-lines (point-min) (point-max))))))
+    (concat
+     (propertize (make-string (- w (length (number-to-string line))) ? )
+                 'face 'linum-leading-zero)
+     (propertize (number-to-string line) 'face 'linum)
+     "\u2502")))

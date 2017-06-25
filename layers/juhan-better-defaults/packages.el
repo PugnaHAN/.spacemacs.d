@@ -30,7 +30,9 @@
 ;;; Code:
 
 (defconst juhan-better-defaults-packages
-  '(dired)
+  '(dired
+    fcitx
+    helm)
   "The list of Lisp packages required by the juhan-better-defaults layer.
 
 Each entry is either:
@@ -81,5 +83,16 @@ Each entry is either:
       (when (and bye-p (not (string-match "[/\\\\]\\.$" filename)))
         (kill-buffer orig))))
   )
+
+(defun juhan-better-defaults/post-init-fcitx()
+  (fcitx-aggressive-setup)
+  (setq fcitx-use-dbus t)
+  (fcitx-prefix-keys-add "M-m")
+  )
+
+(defun juhan-better-defaults/post-init-helm()
+  ;; Set the C-s as the helm-occur
+  (global-set-key (kbd "C-s") 'helm-occur)
+)
 
 ;;; packages.el ends here

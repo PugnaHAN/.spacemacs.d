@@ -28,7 +28,7 @@ values."
                       auto-completion-enable-help-tooltip 'manual)
      helm
      ;; +tags layer
-     gtags
+     ;; gtags
      cscope
      ;; better default
      better-defaults
@@ -39,13 +39,16 @@ values."
             c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode)
      markdown
+     graphviz
      ;; +tools
      ;; ycmd
      ;; source control
      git
      ;; +intl
      (chinese :variables
-              chinese-enable-youdao-dict t)
+              chinese-enable-youdao-dict t
+              chinese-enable-fcitx t
+              )
      ;; markdown
      (org :variables org-projectile-file "TODOs.org")
      ;; checker
@@ -145,11 +148,11 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("InputMono"
+   dotspacemacs-default-font '("Input Mono Compressed"
                                :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -296,15 +299,9 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
+you should place your code here."    
 
   (setq powerline-default-separator 'arrow)
-  ;; Disable the keybinding to avoid the white screen issue on Xmanager
-  (global-set-key (kbd "<C-down-mouse-1>") nil)
-  ;; (global-set-key (kbd "<C-down-mouse-3>") nil)
-  ;; Set the C-s as the helm-occur
-  (global-set-key (kbd "C-s") 'helm-occur)
-
   ;; Org mode settings
   (with-eval-after-load 'org
     (progn
@@ -312,16 +309,7 @@ you should place your code here."
       (setq org-startup-folded nil)
       (when (org-agenda-file-p)
         (require 'org-projectile)
-        (push (org-projectile:todo-files) org-agenda-files))))      
-
-  ;; Global settings
-  (setq-default fill-column 90)
-  ;; set the cursor type
-  (setq-default evil-emacs-state-cursor '("skyblue" bar))
-
-  ;; Key bindings
-  (global-set-key (kbd "C-j") 'newline-and-indent)
-  (global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
+        (push (org-projectile:todo-files) org-agenda-files))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

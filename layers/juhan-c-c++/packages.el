@@ -120,6 +120,12 @@ Each entry is either:
   ;; (juhan|toggle-company-backends company-ycmd)
   (spacemacs|hide-lighter ycmd-mode)
 
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode
+    "yc" 'juhan-c-c++/generate-ycmd-extra-conf)
+
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+    "yc" 'juhan-c-c++/generate-ycmd-extra-conf)
+
   ;; (spacemacs/set-leader-keys-for-major-mode 'c-mode
   ;;   "tb" 'juhan/company-toggle-company-ycmd)
   ;; (spacemacs/set-leader-keys-for-major-mode 'c++-mode

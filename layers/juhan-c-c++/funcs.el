@@ -38,3 +38,17 @@
         (when (version< final-version tmp-version)
           (setq final-version tmp-version))))
     (concat c++-header-path final-version)))
+
+(defun juhan-c-c++/generate-ycmd-extra-conf()
+  "Generate the local extra conf by using YCM-Generator"
+  (interactive)
+  (let* ((config-gen-path juhan-c-c++-config-conf-path)
+         (output-path (read-string "Enter the .ycm_extra_conf.py output path: "))
+         (whole-command (concat config-gen-path
+                                " -o "
+                                (if (string-equal output-path "")
+                                    "." config-gen-path)))
+         (temp-buffer-name "*ycm-generator-output*"))
+    (with-output-to-temp-buffer temp-buffer-name
+      (shell-command whole-command temp-buffer-name)
+      (pop-to-buffer temp-buffer-name))))
