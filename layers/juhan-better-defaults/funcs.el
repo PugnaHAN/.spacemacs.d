@@ -11,6 +11,5 @@
   "Clean the recent file which doesn't exist"
   (dolist (file recentf-list)
     (if (not (file-exists-p file))
-        (delete file recentf-list))))
-        
+        (delete file recentf-list))))       
 

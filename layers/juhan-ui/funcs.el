@@ -37,8 +37,8 @@
 
 (defun window-number-mode-line ()
   "The current window number. Requires `window-numbering-mode' to be enabled."
-  (when (bound-and-true-p window-numbering-mode)
-    (let* ((num (window-numbering-get-number))
+  (when (bound-and-true-p winum-mode)
+    (let* ((num (winum-get-number))
            ;; When the num is not nil, get its string
            (str (when num 
                   (int-to-string num))))

@@ -36,7 +36,7 @@
     popwin
     (whitespace :location built-in)
     ;; if you wnat to use spaceline, please comment out zilong-mode-line
-    ;; spaceline
+    spaceline
     ;; beacon
     ;; evil-vimish-fold
     company
@@ -335,13 +335,14 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
 ;; Init the table can be aligned in org mode
 (defun juhan-ui/init-font-config()
   "Use Input Mono Compressed:13 and Noto Sans Mono Hei CJK TC:14 to align the fonts width"
-  (let ((ft-family (if (string-equal system-type "gnu/linux")
-                       "Noto Sans Mono CJK TC"
-                     "Microsoft Yahei")))
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font)
-                        charset
-                        (font-spec :family ft-family :size 14))))
+  (when (window-system)
+    (let ((ft-family (if (string-equal system-type "gnu/linux")
+                         "Noto Sans Mono CJK TC"
+                       "Microsoft Yahei")))
+      (dolist (charset '(kana han symbol cjk-misc bopomofo))
+        (set-fontset-font (frame-parameter nil 'font)
+                          charset
+                          (font-spec :family ft-family :size 14)))))
   )
 
 ;; configure some ui settings
@@ -392,8 +393,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
 
 ;; Set the powerline style
 (defun juhan-ui/post-init-powerline()
-  (setq powerline-default-separator 'arrow)
-)
+  (setq powerline-default-separator 'arrow))
 
 ;; Set linum format 
 (defun juhan-ui/post-init-linum()

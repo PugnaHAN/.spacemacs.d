@@ -40,6 +40,7 @@ values."
             c-c++-default-mode-for-headers 'c++-mode)
      markdown
      graphviz
+     yaml
      ;; +tools
      ;; ycmd
      ;; source control

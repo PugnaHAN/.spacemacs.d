@@ -52,3 +52,31 @@
     (with-output-to-temp-buffer temp-buffer-name
       (shell-command whole-command temp-buffer-name)
       (pop-to-buffer temp-buffer-name))))
+
+(defun juhan-c-c++/get-symbol-index-in-line(sym)
+  "get the symbol position in a line"
+  (let* ((start (line-beginning-position))
+         (end (line-end-position))
+         (c (char-after start))
+         (p start))
+    (catch 'sym
+      (if (char-or-string-p sym)
+          (setq sym (string-to-char sym))
+        (throw 'sym nil)))
+    (while (and (< p end) (not (char-equal c sym)))
+      (goto-char p)
+      (setq c (char-after p))
+      (message "current char is %c" c)
+      (setq p (+ p 1)))
+    (return (- p start))))
+
+(defun juhan-c-c++/max-num-in-list(list)
+  "get the maxium number in a list"
+  (catch 'list
+    (let ((result 0))
+      (dolist (var list)
+        (if (numberp var)
+            (setq result (if (> result var)  result
+                           var))
+          (throw 'list nil)))
+      result)))

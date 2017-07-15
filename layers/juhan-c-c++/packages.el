@@ -38,6 +38,7 @@
     ycmd
     company-ycmd
     flycheck
+    cscope
     )
 
   "The list of Lisp packages required by the juhan-c-c++ layer.
@@ -150,6 +151,13 @@ Each entry is either:
   (add-hook 'c++-mode-hook '(lambda()
                               (setq flycheck-clang-language-standard "c++11")
                               ))
+  )
+
+(defun juhan-c-c++/post-init-cscope()
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode
+    "gp" 'cscope-pop-mark)
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode
+    "gp" 'cscope-pop-mark)
   )
 
 ;;; packages.el ends here
