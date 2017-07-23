@@ -83,7 +83,7 @@ Each entry is either:
   (setq-default plantuml-jar-path juhan-org-plantuml-jar-path)
   (add-to-list 'auto-mode-alist '("\\.\\(plantuml\\|uml\\)$" . plantuml-mode))
   (with-eval-after-load 'org
-    (add-to-list 'org-src-lang-modes `("plantuml" . plantuml)))
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml)))
 )
 
 (defun juhan-org/init-flycheck-plantuml()
