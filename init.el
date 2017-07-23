@@ -64,6 +64,7 @@ values."
      (juhan-c-c++ :variables
                   juhan-c-c++-company-idle-delay 0.1)
      juhan-better-defaults
+     juhan-org
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -301,16 +302,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."    
-
-  (setq powerline-default-separator 'arrow)
-  ;; Org mode settings
-  (with-eval-after-load 'org
-    (progn
-      (setq truncate-lines nil)
-      (setq org-startup-folded nil)
-      (when (org-agenda-file-p)
-        (require 'org-projectile)
-        (push (org-projectile:todo-files) org-agenda-files))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

@@ -31,6 +31,8 @@
 
 (defconst juhan-org-packages
   '((org :location built-in)
+    (plantuml-mode)
+    (flycheck-plantuml)
     )
   "The list of Lisp packages required by the juhan-org layer.
 
@@ -59,5 +61,39 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+(defun juhan-org/post-init-org()
+  (setq truncate-lines nil)
+  (setq org-startup-folded nil)
+  ;; set the default user-full-name & user-mail-address to help to generate template
+  (setq-default user-full-name "Juhan Zhang")
+  (setq-default user-mail-address "juhan.zhang@hannto.com")
+  ;; add the .txt and .org_archive to auto-mode-list
+  (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+  ;; add the plantuml into babel languages
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((python . t) (emacs-lisp . t) (dot . t) (plantuml . t)))
+  (setq org-plantuml-jar-path juhan-org-plantuml-jar-path)
+  )
+
+(defun juhan-org/init-plantuml-mode()
+  (use-package plantuml-mode
+    :defer t))
+
+(defun juhan-org/post-init-plantuml-mode()  
+  (setq-default plantuml-jar-path juhan-org-plantuml-jar-path)
+  (add-to-list 'auto-mode-alist '("\\.\\(plantuml\\|uml\\)$" . plantuml-mode))
+  (with-eval-after-load 'org
+    (add-to-list 'org-src-lang-modes `("plantuml" . plantuml)))
+)
+
+(defun juhan-org/init-flycheck-plantuml()
+  (use-package flycheck-plantuml
+    :defer t
+    ))
+
+(defun juhan-org/post-init-flycheck-plantuml()
+  (with-eval-after-load 'flycheck
+    (flycheck-plantuml-setup)
+    (add-hook 'plantuml-mode-hook 'flycheck-mode)))
 
 ;;; packages.el ends here

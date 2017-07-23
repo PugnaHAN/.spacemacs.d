@@ -295,6 +295,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
     (setq whitespace-line-column 90)
 
     (setq-default tab-width 4)
+    ;; (set-buffer-file-coding-system 'utf-8)
     ;; set-buffer-file-coding-system -> utf8 to convert dos to utf8
     ;; (setq inhibit-eol-conversion t)
     ;; (add-hook 'prog-mode-hook 'whitespace-mode)
